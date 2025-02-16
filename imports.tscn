@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://dxwauoo7kpr1"]
+
+[ext_resource type="Script" path="res://imports.gd" id="1_vhmth"]
+[ext_resource type="Script" path="res://chart.gd" id="2_3xxqr"]
+[ext_resource type="Texture2D" uid="uid://bjrof38drcpjg" path="res://Assets/down arrow.png" id="3_hedo3"]
+[ext_resource type="Texture2D" uid="uid://k1ddrpwjcsje" path="res://Assets/up arrow.png" id="4_phmah"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l7r67"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_hedo3")
+}],
+"loop": false,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_phmah")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
+
+[node name="imports" type="Node2D"]
+script = ExtResource("1_vhmth")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 1)
+
+[node name="Button" type="Button" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_right = 1920.0
+offset_bottom = 1080.0
+text = "click anywhere to begin configuration"
+
+[node name="chart" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_3xxqr")
+individual_ready = true
+
+[node name="indicator arrow" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-98, -9)
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_l7r67")
+animation = &"down"
+
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

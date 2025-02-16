@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://dj0mfqw46u5no"]
+
+[ext_resource type="Script" path="res://individual_view.gd" id="1_pt6ry"]
+[ext_resource type="Script" path="res://chart.gd" id="2_ta28g"]
+[ext_resource type="Texture2D" uid="uid://bjrof38drcpjg" path="res://Assets/down arrow.png" id="3_05c4x"]
+
+[node name="individual view" type="Node2D"]
+script = ExtResource("1_pt6ry")
+
+[node name="title" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = 710.0
+offset_right = 1210.0
+offset_bottom = 100.0
+theme_override_font_sizes/font_size = 100
+text = "7617"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="chart" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, 200)
+script = ExtResource("2_ta28g")
+
+[node name="Button" type="Button" parent="."]
+unique_name_in_owner = true
+offset_right = 300.0
+offset_bottom = 100.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(150, 50)
+rotation = 1.5708
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_05c4x")
+
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
