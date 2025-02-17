@@ -11,9 +11,19 @@ var lbllocations:Dictionary = {}
 var run_before:bool = false
 var copy_of_lbllocations:Dictionary
 var column_script:Script = load("res://label.gd")
+var active_scroller:ScrollContainer
 #@onready var h_box_container: HBoxContainer = %HBoxContainer
 var team_number_script:Script = load("res://team_number_label.gd")
 @export var individual_ready:bool = false
+var scroller_script:Script = preload("res://scroll_container.gd")
+
+func _ready() -> void:
+	Globals.import_scroll_started.connect(import_scroll_started)
+
+
+
+
+
 func create_column(column_name:String):
 	var new_label = Label.new()
 	new_label.mouse_filter = 1
@@ -28,7 +38,7 @@ func create_column(column_name:String):
 	last_column_position+=Vector2(lblwidth,0)
 	columns.append(new_label)
 	var new_sb = StyleBoxFlat.new()
-	new_sb.bg_color = random_color(.2,.8)
+	new_sb.bg_color = random_color(0,.7,len(columnIDs.keys()))
 	new_label.add_theme_stylebox_override("normal",new_sb)
 	columnIDs[column_name] = last_ID
 	lbllocations[str(last_ID)] = []
@@ -37,34 +47,35 @@ func create_column(column_name:String):
 	last_ID +=1
 	
 	
-	
+func set_active_scroller(scroller:ScrollContainer):
+	active_scroller = scroller
 
 func setup_column_seperators(width:int,height:int):
-	print(Scrollers[0].size.y)
-	for i in range(height+1):
-		var new_color_rect:ColorRect = ColorRect.new()
-		self.add_child(new_color_rect)
-		new_color_rect.size = Vector2(lblwidth*width,.1*lblheight)
-		new_color_rect.position = Vector2(0,-new_color_rect.size.y+lblheight+i*(Scrollers[0].size.y/(height)))
-		#new_color_rect.position = Vector2(0,-new_color_rect.size.y+(height+1)*lblheight+lbllocations[lbllocations.keys()[-1]][-1].position.y/height)
-		new_color_rect.modulate = random_color(.3,.6)
+	pass
+	#print(Scrollers[0].size.y)
+	#
+	#if height > 38:
+		#height = 38
+		#for i in VboxID.values():
+			#var new_margin:TextureRect = TextureRect.new()
+			#new_margin.size = Vector2(lblwidth,.25*lblheight)
+			#i.add_child(new_margin)
+	#for i in range(height+1):
+		#var new_color_rect:ColorRect = ColorRect.new()
+		#self.add_child(new_color_rect)
+		#new_color_rect.size = Vector2(lblwidth*width,.1*lblheight)
+		#new_color_rect.position = Vector2(0,-new_color_rect.size.y+lblheight+i*(Scrollers[0].size.y/(height)))
+		##new_color_rect.position = Vector2(0,-new_color_rect.size.y+(height+1)*lblheight+lbllocations[lbllocations.keys()[-1]][-1].position.y/height)
+		#new_color_rect.modulate = random_color(.3,.6)
 		
-func random_color(cap:float,minimum:float)->Color:
-	var r:float = randf()
-	var g:float = randf()
-	var b:float = randf()
-	if r > cap:
-		r = cap
-	elif r < minimum:
-		r = minimum
-	if g > cap:
-		g = cap
-	elif g < minimum:
-		g = minimum
-	if b > cap:
-		b = cap
-	elif b < minimum:
-		b = minimum
+func random_color(cap:float,minimum:float,seed:int)->Color:
+	var rng:RandomNumberGenerator = RandomNumberGenerator.new()
+	rng.seed = seed
+	var r:float =rng.randf_range(minimum,cap)
+	rng.seed = seed*7617
+	var g:float = rng.randf_range(minimum,cap)
+	rng.seed = seed*7617*15*1
+	var b:float =rng.randf_range(minimum,cap)
 	return Color(r,g,b)
 func add_item_to_column(ID:int,new_value:String):
 	var Vbox:VBoxContainer
@@ -72,16 +83,19 @@ func add_item_to_column(ID:int,new_value:String):
 		Vbox =VboxID[str(ID)]
 	else:
 		var scrollbox = ScrollContainer.new()
+		scrollbox.set_script(scroller_script)
 		#if ID !=0:
 			#h_box_container.add_child(scrollbox)
 		Vbox = VBoxContainer.new()
 		VboxID[str(ID)] = Vbox
 		Vbox.alignment = 1
 		self.add_child(scrollbox)
-		scrollbox.add_child(Vbox)
-		scrollbox.position = Vector2(ID*lblwidth+.3333*lblwidth,lblheight)
+		scrollbox.position = Vector2(ID*lblwidth,lblheight)
+		scrollbox.scroll_vertical_custom_step = 50
 		scrollbox.size = Vector2(lblwidth,1080-lblheight)
 		Scrollers.append(scrollbox)
+		scrollbox.add_child(Vbox)
+		active_scroller = scrollbox
 	#Scrollers[ID].size = Vector2(lblwidth,(1+len(lbllocations[str(ID)]))*lblheight)
 	#print(Scrollers[ID].size)
 	#if Scrollers[ID].size.y > 1080:
@@ -100,9 +114,23 @@ func add_item_to_column(ID:int,new_value:String):
 	#new_sb.bg_color = Color(.05*len(columns),.05*len(columns),.05*len(columns))
 	#new_label.add_theme_stylebox_override("normal",new_sb)
 	lbllocations[str(ID)].append(new_label)
+	var new_color_rect:ColorRect = ColorRect.new()
+	new_color_rect.custom_minimum_size = Vector2(lblwidth,.1*lblheight)
+	Vbox.add_child(new_color_rect)
+	#new_color_rect.position = Vector2(0,-new_color_rect.size.y+lblheight+i*(Scrollers[0].size.y/(height)))
+	#new_color_rect.position = Vector2(0,-new_color_rect.size.y+(height+1)*lblheight+lbllocations[lbllocations.keys()[-1]][-1].position.y/height)
+	new_color_rect.modulate = random_color(.3,.6,len(lbllocations[str(ID)]))
+
+func import_scroll_started(scroller:ScrollContainer):
+	active_scroller = scroller
+
+
+
+
+
 func _physics_process(delta: float) -> void:
 	for i in Scrollers:
-		i.scroll_vertical = Scrollers[0].scroll_vertical
+		i.scroll_vertical = active_scroller.scroll_vertical
 
 func sort_column_element(team_number:String,pos:int):
 	#print(team_number, pos)
