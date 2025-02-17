@@ -7,7 +7,9 @@ var VboxID:Dictionary = {}
 var Scrollers:Array = []
 @export var lblwidth:int = 150
 @export var lblheight:int = 50
+@export var chart_height:int = 1080
 var lbllocations:Dictionary = {}
+var seperators:Dictionary = {}
 var run_before:bool = false
 var copy_of_lbllocations:Dictionary
 var column_script:Script = load("res://label.gd")
@@ -15,8 +17,9 @@ var active_scroller:ScrollContainer
 #@onready var h_box_container: HBoxContainer = %HBoxContainer
 var team_number_script:Script = load("res://team_number_label.gd")
 @export var individual_ready:bool = false
+@export var selection_ready:bool = false
 var scroller_script:Script = preload("res://scroll_container.gd")
-
+var selection_number_script = preload("res://selection_number_script.gd")
 func _ready() -> void:
 	Globals.import_scroll_started.connect(import_scroll_started)
 
@@ -42,6 +45,7 @@ func create_column(column_name:String):
 	new_label.add_theme_stylebox_override("normal",new_sb)
 	columnIDs[column_name] = last_ID
 	lbllocations[str(last_ID)] = []
+	seperators[str(last_ID)] = []
 	#if last_ID !=0:
 		#h_box_container.add_child(new_label)
 	last_ID +=1
@@ -92,7 +96,7 @@ func add_item_to_column(ID:int,new_value:String):
 		self.add_child(scrollbox)
 		scrollbox.position = Vector2(ID*lblwidth,lblheight)
 		scrollbox.scroll_vertical_custom_step = 50
-		scrollbox.size = Vector2(lblwidth,1080-lblheight)
+		scrollbox.size = Vector2(lblwidth,chart_height-lblheight)
 		Scrollers.append(scrollbox)
 		scrollbox.add_child(Vbox)
 		active_scroller = scrollbox
@@ -108,6 +112,9 @@ func add_item_to_column(ID:int,new_value:String):
 	if individual_ready and columns[ID].text == "teamNumber":
 		new_label.mouse_filter = 1
 		new_label.set_script(team_number_script)
+	elif selection_ready and columns[ID].text == "teamNumber":
+		new_label.mouse_filter = 1
+		new_label.set_script(selection_number_script)
 		#print("attached")
 		#print(new_label.get_script())
 	#var new_sb = StyleBoxFlat.new()
@@ -120,19 +127,23 @@ func add_item_to_column(ID:int,new_value:String):
 	#new_color_rect.position = Vector2(0,-new_color_rect.size.y+lblheight+i*(Scrollers[0].size.y/(height)))
 	#new_color_rect.position = Vector2(0,-new_color_rect.size.y+(height+1)*lblheight+lbllocations[lbllocations.keys()[-1]][-1].position.y/height)
 	new_color_rect.modulate = random_color(.3,.6,len(lbllocations[str(ID)]))
+	seperators[str(ID)].append(new_color_rect)
 
 func import_scroll_started(scroller:ScrollContainer):
 	active_scroller = scroller
+	update_scroller_position()
 
 
-
-
-
-func _physics_process(delta: float) -> void:
+func update_scroller_position():
 	for i in Scrollers:
 		i.scroll_vertical = active_scroller.scroll_vertical
 
-func sort_column_element(team_number:String,pos:int):
+
+#func _physics_process(delta: float) -> void:
+	#for i in Scrollers:
+		#i.scroll_vertical = active_scroller.scroll_vertical
+
+func sort_column_element(team_number:String,pos:int,amount_of_available_teams:int):
 	#print(team_number, pos)
 	var index:String
 	if !run_before:
@@ -155,8 +166,19 @@ func sort_column_element(team_number:String,pos:int):
 			#print(copy_of_lbllocations[str(columnIDs["teamNumber"])][int(i)],"      ", i)
 		counter +=1
 	#print(copy_of_lbllocations[str(columnIDs["teamNumber"])])
+	print(amount_of_available_teams)
 	for k in columnIDs.values():
 		#print(index)
 		#print(copy_of_lbllocations[str(k)][int(index)].text)
+		#print(lbllocations[str(k)].size())
 		lbllocations[str(k)][pos].text =copy_of_lbllocations[str(k)][int(index)]
-	
+	for k in lbllocations.keys():
+		print(amount_of_available_teams,"aoa")
+		print(lbllocations[k].size(),"lbls")
+		if amount_of_available_teams < lbllocations[str(k)].size():
+			#print(len(lbllocations[str(k)]))
+			print(lbllocations[str(k)],"ede")
+			lbllocations[str(k)][lbllocations[str(k)].size()-1].queue_free()
+			lbllocations[str(k)].remove_at(lbllocations[str(k)].size()-1)
+			seperators[str(k)][lbllocations[str(k)].size()-1].queue_free()
+			seperators[str(k)].remove_at(lbllocations[str(k)].size()-1)

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b1bisu1g0ofty"]
+[gd_scene load_steps=5 format=3 uid="uid://b1bisu1g0ofty"]
 
 [ext_resource type="Script" path="res://sortable_column.gd" id="1_m4e3n"]
 [ext_resource type="Script" path="res://team_number_label.gd" id="2_qp1uw"]
 [ext_resource type="Script" path="res://scroll_container.gd" id="3_8jut8"]
+[ext_resource type="Script" path="res://selection_number_script.gd" id="4_o4b4j"]
 
 [node name="sortable column" type="Node2D"]
 script = ExtResource("1_m4e3n")
@@ -29,5 +30,10 @@ layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="ScrollContainer"]
 layout_mode = 2
+
+[node name="Label2" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("4_o4b4j")
 
 [connection signal="gui_input" from="Label" to="." method="_on_label_gui_input"]

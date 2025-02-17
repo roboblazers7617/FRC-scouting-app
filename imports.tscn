@@ -32,13 +32,6 @@ offset_right = 1920.0
 offset_bottom = 1080.0
 color = Color(0, 0, 0, 1)
 
-[node name="Button" type="Button" parent="."]
-unique_name_in_owner = true
-visible = false
-offset_right = 1920.0
-offset_bottom = 1080.0
-text = "click anywhere to begin configuration"
-
 [node name="chart" type="Node2D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("2_3xxqr")
@@ -50,5 +43,3 @@ position = Vector2(-98, -9)
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_l7r67")
 animation = &"down"
-
-[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

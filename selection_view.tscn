@@ -1,0 +1,269 @@
+[gd_scene load_steps=7 format=3 uid="uid://cohrqjuipmni5"]
+
+[ext_resource type="Script" path="res://selection_view.gd" id="1_5iwis"]
+[ext_resource type="Script" path="res://teams_selection.gd" id="2_060ga"]
+[ext_resource type="Script" path="res://chart.gd" id="2_t26kr"]
+[ext_resource type="Texture2D" uid="uid://bjrof38drcpjg" path="res://Assets/down arrow.png" id="3_sjew3"]
+[ext_resource type="Texture2D" uid="uid://k1ddrpwjcsje" path="res://Assets/up arrow.png" id="4_4sltj"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tt1l5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_sjew3")
+}],
+"loop": false,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_4sltj")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
+
+[node name="selection view" type="Node2D"]
+script = ExtResource("1_5iwis")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 1)
+
+[node name="teams_selection" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_060ga")
+
+[node name="Alliance 1" type="ColorRect" parent="teams_selection"]
+self_modulate = Color(0, 0, 1, 1)
+offset_left = 320.0
+offset_top = 50.0
+offset_right = 620.0
+offset_bottom = 110.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="teams_selection/Alliance 1"]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 60.0
+
+[node name="Team 1" type="Label" parent="teams_selection/Alliance 1/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="Team 2" type="Label" parent="teams_selection/Alliance 1/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="Team 3" type="Label" parent="teams_selection/Alliance 1/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="Alliance 2" type="ColorRect" parent="teams_selection"]
+self_modulate = Color(0, 0, 1, 1)
+offset_left = 640.0
+offset_top = 50.0
+offset_right = 940.0
+offset_bottom = 110.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="teams_selection/Alliance 2"]
+offset_right = 300.0
+offset_bottom = 60.0
+
+[node name="Team 1" type="Label" parent="teams_selection/Alliance 2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="Team 2" type="Label" parent="teams_selection/Alliance 2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="Team 3" type="Label" parent="teams_selection/Alliance 2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="Alliance 3" type="ColorRect" parent="teams_selection"]
+self_modulate = Color(0, 0, 1, 1)
+offset_left = 960.0
+offset_top = 50.0
+offset_right = 1260.0
+offset_bottom = 110.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="teams_selection/Alliance 3"]
+offset_right = 300.0
+offset_bottom = 60.0
+
+[node name="Team 1" type="Label" parent="teams_selection/Alliance 3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="Team 2" type="Label" parent="teams_selection/Alliance 3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="Team 3" type="Label" parent="teams_selection/Alliance 3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="Alliance 4" type="ColorRect" parent="teams_selection"]
+self_modulate = Color(0, 0, 1, 1)
+offset_left = 1280.0
+offset_top = 50.0
+offset_right = 1580.0
+offset_bottom = 110.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="teams_selection/Alliance 4"]
+offset_right = 300.0
+offset_bottom = 60.0
+
+[node name="Team 1" type="Label" parent="teams_selection/Alliance 4/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="Team 2" type="Label" parent="teams_selection/Alliance 4/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="Team 3" type="Label" parent="teams_selection/Alliance 4/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="Alliance 5" type="ColorRect" parent="teams_selection"]
+self_modulate = Color(0, 0, 1, 1)
+offset_left = 320.0
+offset_top = 150.0
+offset_right = 620.0
+offset_bottom = 210.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="teams_selection/Alliance 5"]
+offset_right = 300.0
+offset_bottom = 60.0
+
+[node name="Team 1" type="Label" parent="teams_selection/Alliance 5/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="Team 2" type="Label" parent="teams_selection/Alliance 5/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="Team 3" type="Label" parent="teams_selection/Alliance 5/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="Alliance 6" type="ColorRect" parent="teams_selection"]
+self_modulate = Color(0, 0, 1, 1)
+offset_left = 640.0
+offset_top = 150.0
+offset_right = 940.0
+offset_bottom = 210.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="teams_selection/Alliance 6"]
+offset_right = 300.0
+offset_bottom = 60.0
+
+[node name="Team 1" type="Label" parent="teams_selection/Alliance 6/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="Team 2" type="Label" parent="teams_selection/Alliance 6/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="Team 3" type="Label" parent="teams_selection/Alliance 6/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="Alliance 7" type="ColorRect" parent="teams_selection"]
+self_modulate = Color(0, 0, 1, 1)
+offset_left = 960.0
+offset_top = 150.0
+offset_right = 1260.0
+offset_bottom = 210.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="teams_selection/Alliance 7"]
+offset_right = 300.0
+offset_bottom = 60.0
+
+[node name="Team 1" type="Label" parent="teams_selection/Alliance 7/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="Team 2" type="Label" parent="teams_selection/Alliance 7/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="Team 3" type="Label" parent="teams_selection/Alliance 7/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="Alliance 8" type="ColorRect" parent="teams_selection"]
+self_modulate = Color(0, 0, 1, 1)
+offset_left = 1280.0
+offset_top = 150.0
+offset_right = 1580.0
+offset_bottom = 210.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="teams_selection/Alliance 8"]
+offset_right = 300.0
+offset_bottom = 60.0
+
+[node name="Team 1" type="Label" parent="teams_selection/Alliance 8/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="Team 2" type="Label" parent="teams_selection/Alliance 8/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="Team 3" type="Label" parent="teams_selection/Alliance 8/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="teams_selection"]
+offset_left = 320.0
+offset_top = 220.0
+offset_right = 1600.0
+offset_bottom = 360.0
+theme_override_font_sizes/font_size = 100
+text = "Choose Teams(In order)"
+
+[node name="chart" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, 480)
+script = ExtResource("2_t26kr")
+chart_height = 600
+selection_ready = true
+
+[node name="indicator arrow" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-98, -9)
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_tt1l5")
+animation = &"down"

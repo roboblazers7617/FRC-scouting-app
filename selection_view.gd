@@ -4,16 +4,16 @@ var spreadsheet_data
 var sheet_name:String = "2024incmp_qm"
 # Called when the node enters the scene tree for the first time.
 @onready var chart:Node2D = %chart
-@onready var button: Button = %Button
-var summarized_data
+var summarized_data:Dictionary
 @onready var indicator_arrow: AnimatedSprite2D = %"indicator arrow"
-var currently_sorted:String
+var currently_sorted:String = "autoamp"
 var descending:bool = false
-
-
-
+var picked_teams:Array = []
+@onready var teams_selection: Node2D = %teams_selection
+var descend_override:bool = false
 
 func _ready() -> void:
+	Globals.activate_pick.connect(add_pick)
 	print(self.get_script())
 	chart.hide()
 	Globals.sort_by_column.connect(sort_by_category)
@@ -91,8 +91,10 @@ func round_place(num,places):
 
 
 func sort_by_category(category:String):
-	indicator_arrow.position = Vector2(chart.lblwidth*int(chart.columnIDs[category])+chart.lblwidth*.9,.5*chart.lblheight)
-	if currently_sorted == category:
+	indicator_arrow.position = Vector2(chart.lblwidth*int(chart.columnIDs[category])+chart.lblwidth*.9,.5*chart.lblheight+chart.position.y)
+	if descend_override:
+		descend_override = false
+	elif currently_sorted == category:
 		descending = !descending
 	else:
 		descending  = true
@@ -107,6 +109,12 @@ func sort_by_category(category:String):
 		dataIDs.append([summarized_data[k][category],k])
 	var n:int = len(dataIDs)
 		# Traverse through all array elements
+	#for i in dataIDs:
+		#if i[1] in picked_teams:
+			#for k in summarized_data.values()[0].keys():
+				#summarized_data[i[1]].k = ""
+				#print(summarized_data[i[1]])
+
 	if descending:
 		for i in range(n):
 				var swapped:bool = false
@@ -143,7 +151,7 @@ func sort_by_category(category:String):
 					break
 	#print(dataIDs)
 	for i in range(dataIDs.size()):
-		chart.sort_column_element(dataIDs[i][1],i)
+		chart.sort_column_element(dataIDs[i][1],i,len(summarized_data.keys()))
 		
 	#dataIDs.sort()
 	#var ignored:Array = []
@@ -156,3 +164,10 @@ func sort_by_category(category:String):
 					#chart.sort_column_element(i,chart.columnIDs[k],current)
 					#current+=1
 				#break
+
+func add_pick(pick:String):
+	teams_selection.add_pick(pick)
+	picked_teams.append(pick)
+	summarized_data.erase(pick)
+	descend_override = true
+	sort_by_category(currently_sorted)

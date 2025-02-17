@@ -10,5 +10,4 @@ func _process(delta: float) -> void:
 		scroll_starter()
 		old_pos = self.scroll_vertical
 func scroll_starter():
-	print("triggerd")
 	Globals.import_scroll_started.emit(self)
