@@ -166,19 +166,16 @@ func sort_column_element(team_number:String,pos:int,amount_of_available_teams:in
 			#print(copy_of_lbllocations[str(columnIDs["teamNumber"])][int(i)],"      ", i)
 		counter +=1
 	#print(copy_of_lbllocations[str(columnIDs["teamNumber"])])
-	print(amount_of_available_teams)
 	for k in columnIDs.values():
 		#print(index)
 		#print(copy_of_lbllocations[str(k)][int(index)].text)
 		#print(lbllocations[str(k)].size())
 		lbllocations[str(k)][pos].text =copy_of_lbllocations[str(k)][int(index)]
-	for k in lbllocations.keys():
-		print(amount_of_available_teams,"aoa")
-		print(lbllocations[k].size(),"lbls")
-		if amount_of_available_teams < lbllocations[str(k)].size():
-			#print(len(lbllocations[str(k)]))
-			print(lbllocations[str(k)],"ede")
-			lbllocations[str(k)][lbllocations[str(k)].size()-1].queue_free()
-			lbllocations[str(k)].remove_at(lbllocations[str(k)].size()-1)
-			seperators[str(k)][lbllocations[str(k)].size()-1].queue_free()
-			seperators[str(k)].remove_at(lbllocations[str(k)].size()-1)
+	if amount_of_available_teams >=0:
+		for k in lbllocations.keys():
+			if amount_of_available_teams < lbllocations[str(k)].size():
+				#print(len(lbllocations[str(k)]))
+				lbllocations[str(k)][lbllocations[str(k)].size()-1].queue_free()
+				lbllocations[str(k)].remove_at(lbllocations[str(k)].size()-1)
+				seperators[str(k)][lbllocations[str(k)].size()-1].queue_free()
+				seperators[str(k)].remove_at(lbllocations[str(k)].size()-1)

@@ -34,7 +34,9 @@ color = Color(0, 0, 0, 1)
 
 [node name="chart" type="Node2D" parent="."]
 unique_name_in_owner = true
+position = Vector2(0, 150)
 script = ExtResource("2_3xxqr")
+chart_height = 930
 individual_ready = true
 
 [node name="indicator arrow" type="AnimatedSprite2D" parent="."]
@@ -43,3 +45,13 @@ position = Vector2(-98, -9)
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_l7r67")
 animation = &"down"
+
+[node name="selection_view" type="Button" parent="."]
+unique_name_in_owner = true
+offset_left = 735.0
+offset_right = 1185.0
+offset_bottom = 71.0
+theme_override_font_sizes/font_size = 40
+text = "Enter Selection_view"
+
+[connection signal="button_down" from="selection_view" to="." method="_on_selection_view_button_down"]

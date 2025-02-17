@@ -11,10 +11,10 @@ var descending:bool = false
 var picked_teams:Array = []
 @onready var teams_selection: Node2D = %teams_selection
 var descend_override:bool = false
+var main_scene:PackedScene = load("res://imports.tscn")
 
 func _ready() -> void:
 	Globals.activate_pick.connect(add_pick)
-	print(self.get_script())
 	chart.hide()
 	Globals.sort_by_column.connect(sort_by_category)
 	_on_button_button_down()
@@ -54,6 +54,9 @@ func _on_button_button_down() -> void:
 				else:
 					chart.add_item_to_column(chart.columnIDs[i],str(data[i]))
 	chart.setup_column_seperators(len(chart.columns),len(chart.lbllocations[str(chart.columnIDs["teamNumber"])]))
+	print(len(Globals.picked_teams))
+	for i in Globals.picked_teams:
+		add_pick(i)
 
 func summarize_data(spreadsheet_data):
 	var saved_data:Dictionary = {}
@@ -168,6 +171,13 @@ func sort_by_category(category:String):
 func add_pick(pick:String):
 	teams_selection.add_pick(pick)
 	picked_teams.append(pick)
+	if pick not in Globals.picked_teams:
+		Globals.picked_teams.append(pick)
 	summarized_data.erase(pick)
 	descend_override = true
 	sort_by_category(currently_sorted)
+
+
+
+func _on_exit_button_down() -> void:
+	get_tree().change_scene_to_packed(main_scene)

@@ -72,6 +72,7 @@ offset_right = 940.0
 offset_bottom = 110.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="teams_selection/Alliance 2"]
+layout_mode = 0
 offset_right = 300.0
 offset_bottom = 60.0
 
@@ -98,6 +99,7 @@ offset_right = 1260.0
 offset_bottom = 110.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="teams_selection/Alliance 3"]
+layout_mode = 0
 offset_right = 300.0
 offset_bottom = 60.0
 
@@ -124,6 +126,7 @@ offset_right = 1580.0
 offset_bottom = 110.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="teams_selection/Alliance 4"]
+layout_mode = 0
 offset_right = 300.0
 offset_bottom = 60.0
 
@@ -150,6 +153,7 @@ offset_right = 620.0
 offset_bottom = 210.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="teams_selection/Alliance 5"]
+layout_mode = 0
 offset_right = 300.0
 offset_bottom = 60.0
 
@@ -176,6 +180,7 @@ offset_right = 940.0
 offset_bottom = 210.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="teams_selection/Alliance 6"]
+layout_mode = 0
 offset_right = 300.0
 offset_bottom = 60.0
 
@@ -202,6 +207,7 @@ offset_right = 1260.0
 offset_bottom = 210.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="teams_selection/Alliance 7"]
+layout_mode = 0
 offset_right = 300.0
 offset_bottom = 60.0
 
@@ -228,6 +234,7 @@ offset_right = 1580.0
 offset_bottom = 210.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="teams_selection/Alliance 8"]
+layout_mode = 0
 offset_right = 300.0
 offset_bottom = 60.0
 
@@ -267,3 +274,16 @@ position = Vector2(-98, -9)
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_tt1l5")
 animation = &"down"
+
+[node name="Button" type="Button" parent="."]
+unique_name_in_owner = true
+offset_right = 300.0
+offset_bottom = 100.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(150, 50)
+rotation = 1.5708
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_sjew3")
+
+[connection signal="button_down" from="Button" to="." method="_on_exit_button_down"]

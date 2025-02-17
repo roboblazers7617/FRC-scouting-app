@@ -1,6 +1,7 @@
 extends Node
 var individual:PackedScene = preload("res://individual_view.tscn")
 var selection_filled:bool = false
+var picked_teams:Array = []
 signal sort_by_column(column_name:String)
 signal setup_individual(team:String)
 signal import_scroll_started(scroller:ScrollContainer)

@@ -9,7 +9,7 @@ var summarized_data
 @onready var indicator_arrow: AnimatedSprite2D = %"indicator arrow"
 var currently_sorted:String
 var descending:bool = false
-
+var selection_view:PackedScene = load("res://selection_view.tscn")
 
 
 
@@ -91,7 +91,7 @@ func round_place(num,places):
 
 
 func sort_by_category(category:String):
-	indicator_arrow.position = Vector2(chart.lblwidth*int(chart.columnIDs[category])+chart.lblwidth*.9,.5*chart.lblheight)
+	indicator_arrow.position = Vector2(chart.lblwidth*int(chart.columnIDs[category])+chart.lblwidth*.9,.5*chart.lblheight+chart.position.y)
 	if currently_sorted == category:
 		descending = !descending
 	else:
@@ -143,7 +143,7 @@ func sort_by_category(category:String):
 					break
 	#print(dataIDs)
 	for i in range(dataIDs.size()):
-		chart.sort_column_element(dataIDs[i][1],i)
+		chart.sort_column_element(dataIDs[i][1],i,-1)
 		
 	#dataIDs.sort()
 	#var ignored:Array = []
@@ -156,3 +156,7 @@ func sort_by_category(category:String):
 					#chart.sort_column_element(i,chart.columnIDs[k],current)
 					#current+=1
 				#break
+
+
+func _on_selection_view_button_down() -> void:
+	get_tree().change_scene_to_packed(selection_view)
