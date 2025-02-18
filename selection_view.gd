@@ -64,28 +64,28 @@ func summarize_data(spreadsheet_data):
 		var data = spreadsheet_data.get(str(x))
 		if str(data["teamNumber"]) in saved_data.keys():
 			for i in data.keys():
-				if i in Settings.whitelist and i != "teamNumber" and data["broke"] != 1 or i == "broke" :
+				if i in Settings.whitelist and i != "teamNumber" and data["died"] != 1 or i == "died" :
 					saved_data[str(data["teamNumber"])][i]+=int(data[i])
-			if int(data["broke"])!=1:
+			if int(data["died"])!=1:
 				saved_data[str(data["teamNumber"])]["matchesplayed"]+=1
 		else:
 			var new_dict:Dictionary = {}
 			for i in data.keys():
 				if i in Settings.whitelist and i != "teamNumber":
-					if data["broke"] != 1 or  i == "broke":
+					if data["died"] != 1 or  i == "died":
 						new_dict[i]=int(data[i])
 					else:
 						new_dict[i] = 0
-					if int(data["broke"]) == 1:
+					if int(data["died"]) == 1:
 						new_dict["matchesplayed"]=0
 					else:
 						new_dict["matchesplayed"]=1
 			saved_data[str(data["teamNumber"])] = new_dict
 	for x in saved_data.keys():
 		for y in saved_data[x].keys():
-			if y != "matchesplayed" and y!= "broke":
+			if y != "matchesplayed" and y!= "died":
 				saved_data[x][y] = round_place(float(saved_data[x][y])/float(saved_data[x]["matchesplayed"]),3)
-			elif y == "broke":
+			elif y == "died":
 				saved_data[x][y] = round_place(float(saved_data[x][y])/(float(saved_data[x]["matchesplayed"])+1),3)
 	return saved_data
 
