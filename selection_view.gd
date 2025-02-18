@@ -6,7 +6,7 @@ var sheet_name:String = "2024incmp_qm"
 @onready var chart:Node2D = %chart
 var summarized_data:Dictionary
 @onready var indicator_arrow: AnimatedSprite2D = %"indicator arrow"
-var currently_sorted:String = "autoamp"
+var currently_sorted:String = Settings.whitelist[1]
 var descending:bool = false
 var picked_teams:Array = []
 @onready var teams_selection: Node2D = %teams_selection

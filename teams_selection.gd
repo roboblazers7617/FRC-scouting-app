@@ -49,20 +49,20 @@ func add_pick(pick:String):
 		$"Alliance 7/HBoxContainer/Team 2".text = pick
 	elif $"Alliance 8/HBoxContainer/Team 2".text == "":
 		$"Alliance 8/HBoxContainer/Team 2".text = pick
-	elif $"Alliance 1/HBoxContainer/Team 3".text == "":
-		$"Alliance 1/HBoxContainer/Team 3".text = pick
-	elif $"Alliance 2/HBoxContainer/Team 3".text == "":
-		$"Alliance 2/HBoxContainer/Team 3".text = pick
-	elif $"Alliance 3/HBoxContainer/Team 3".text == "":
-		$"Alliance 3/HBoxContainer/Team 3".text = pick
-	elif $"Alliance 4/HBoxContainer/Team 3".text == "":
-		$"Alliance 4/HBoxContainer/Team 3".text = pick
-	elif $"Alliance 5/HBoxContainer/Team 3".text == "":
-		$"Alliance 5/HBoxContainer/Team 3".text = pick
-	elif $"Alliance 6/HBoxContainer/Team 3".text == "":
-		$"Alliance 6/HBoxContainer/Team 3".text = pick
-	elif $"Alliance 7/HBoxContainer/Team 3".text == "":
-		$"Alliance 7/HBoxContainer/Team 3".text = pick
 	elif $"Alliance 8/HBoxContainer/Team 3".text == "":
 		$"Alliance 8/HBoxContainer/Team 3".text = pick
+	elif $"Alliance 7/HBoxContainer/Team 3".text == "":
+		$"Alliance 7/HBoxContainer/Team 3".text = pick
+	elif $"Alliance 6/HBoxContainer/Team 3".text == "":
+		$"Alliance 6/HBoxContainer/Team 3".text = pick
+	elif $"Alliance 5/HBoxContainer/Team 3".text == "":
+		$"Alliance 5/HBoxContainer/Team 3".text = pick
+	elif $"Alliance 4/HBoxContainer/Team 3".text == "":
+		$"Alliance 4/HBoxContainer/Team 3".text = pick
+	elif $"Alliance 3/HBoxContainer/Team 3".text == "":
+		$"Alliance 3/HBoxContainer/Team 3".text = pick
+	elif $"Alliance 2/HBoxContainer/Team 3".text == "":
+		$"Alliance 2/HBoxContainer/Team 3".text = pick
+	elif $"Alliance 1/HBoxContainer/Team 3".text == "":
+		$"Alliance 1/HBoxContainer/Team 3".text = pick
 		Globals.selection_filled = true
