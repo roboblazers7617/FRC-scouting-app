@@ -7,6 +7,7 @@ var ignore_list:Array = ["autonote1","autonote2"
 ,"noshow","startingpos","leave","amplifications","climbtime","onstageorder","harmonizeqty"
 ,"buddy","spotlit","playeddefense","receiveddefense","tipped","comments","rating","shotfromsubwoofer"
 ,"shotfrompodium","shotfromwing","shotfromoutside","understage"]
+var whitelist:Array = ["teamNumber","autoamp","autospeaker","teleaopamp","teleopspeaker","teleoptrap","floorpickup","sourcepickup","died","broke"]
 
 	#"teamNumber": 6498,
 	#"autoamp": 0,

@@ -45,11 +45,11 @@ func _on_button_button_down() -> void:
 				first_round = false
 				chart.create_column("teamNumber")
 				for i in data.keys():
-					if i not in Settings.ignore_list:
+					if i in Settings.whitelist:
 						chart.create_column(i)
 			chart.add_item_to_column(chart.columnIDs["teamNumber"],x)
 			for i in data.keys():
-				if i in Settings.ignore_list:
+				if i not in Settings.whitelist:
 					continue
 				else:
 					chart.add_item_to_column(chart.columnIDs[i],str(data[i]))
@@ -61,14 +61,14 @@ func summarize_data(spreadsheet_data):
 		var data = spreadsheet_data.get(str(x))
 		if str(data["teamNumber"]) in saved_data.keys():
 			for i in data.keys():
-				if i not in Settings.ignore_list and i != "teamNumber" and data["broke"] != 1 or i == "broke" :
+				if i in Settings.whitelist and i != "teamNumber" and data["broke"] != 1 or i == "broke" :
 					saved_data[str(data["teamNumber"])][i]+=int(data[i])
 			if int(data["broke"])!=1:
 				saved_data[str(data["teamNumber"])]["matchesplayed"]+=1
 		else:
 			var new_dict:Dictionary = {}
 			for i in data.keys():
-				if i not in Settings.ignore_list and i != "teamNumber":
+				if i in Settings.whitelist and i != "teamNumber":
 					if data["broke"] != 1 or  i == "broke":
 						new_dict[i]=int(data[i])
 					else:

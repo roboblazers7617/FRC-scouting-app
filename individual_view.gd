@@ -21,11 +21,11 @@ func setup(team:String):
 		if str(spreadsheet_data[i]["teamNumber"]) == team:
 			tracked_matches.append(i)
 	for i in spreadsheet_data[tracked_matches[0]].keys():
-			if i not in Settings.ignore_list:
+			if i in Settings.whitelist:
 				chart.create_column(i)
 	for i in tracked_matches:
 		for k in spreadsheet_data[i].keys():
-			if k not in Settings.ignore_list:
+			if k in Settings.whitelist:
 				chart.add_item_to_column(chart.columnIDs[k],str(spreadsheet_data[i][k]))
 	#chart.setup_column_seperators(len(chart.columnIDs.keys()),len(tracked_matches))
 # Called every frame. 'delta' is the elapsed time since the previous frame.
