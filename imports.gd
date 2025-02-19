@@ -64,19 +64,20 @@ func summarize_data(spreadsheet_data):
 					saved_data[str(data["teamNumber"])][i]+=int(data[i])
 			if int(data["died"])!=1:
 				saved_data[str(data["teamNumber"])]["matchesplayed"]+=1
-		else:
-			var new_dict:Dictionary = {}
-			for i in data.keys():
-				if i in Settings.whitelist and i != "teamNumber":
-					if data["died"] != 1 or  i == "died":
-						new_dict[i]=int(data[i])
-					else:
-						new_dict[i] = 0
-					if int(data["died"]) == 1:
-						new_dict["matchesplayed"]=0
-					else:
-						new_dict["matchesplayed"]=1
-			saved_data[str(data["teamNumber"])] = new_dict
+		elif str(data["teamNumber"]) not in saved_data.keys():
+			if str(data["teamNumber"]) in Settings.current_teams:
+				var new_dict:Dictionary = {}
+				for i in data.keys():
+					if i in Settings.whitelist and i != "teamNumber":
+						if data["died"] != 1 or  i == "died":
+							new_dict[i]=int(data[i])
+						else:
+							new_dict[i] = 0
+						if int(data["died"]) == 1:
+							new_dict["matchesplayed"]=0
+						else:
+							new_dict["matchesplayed"]=1
+				saved_data[str(data["teamNumber"])] = new_dict
 	for x in saved_data.keys():
 		for y in saved_data[x].keys():
 			if y != "matchesplayed" and y!= "died":

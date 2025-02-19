@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cohrqjuipmni5"]
+[gd_scene load_steps=8 format=3 uid="uid://cohrqjuipmni5"]
 
 [ext_resource type="Script" path="res://selection_view.gd" id="1_5iwis"]
 [ext_resource type="Script" path="res://teams_selection.gd" id="2_060ga"]
 [ext_resource type="Script" path="res://chart.gd" id="2_t26kr"]
 [ext_resource type="Texture2D" uid="uid://bjrof38drcpjg" path="res://Assets/down arrow.png" id="3_sjew3"]
 [ext_resource type="Texture2D" uid="uid://k1ddrpwjcsje" path="res://Assets/up arrow.png" id="4_4sltj"]
+[ext_resource type="Script" path="res://manual_pick_text_box.gd" id="6_clw1f"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_tt1l5"]
 animations = [{
@@ -286,4 +287,14 @@ rotation = 1.5708
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_sjew3")
 
+[node name="LineEdit" type="LineEdit" parent="."]
+offset_left = 835.0
+offset_top = 350.0
+offset_right = 1085.0
+offset_bottom = 400.0
+placeholder_text = "Enter Team number here"
+alignment = 1
+script = ExtResource("6_clw1f")
+
 [connection signal="button_down" from="Button" to="." method="_on_exit_button_down"]
+[connection signal="text_submitted" from="LineEdit" to="LineEdit" method="_on_text_submitted"]
