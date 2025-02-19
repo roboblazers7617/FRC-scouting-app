@@ -53,7 +53,6 @@ func _on_button_button_down() -> void:
 					continue
 				else:
 					chart.add_item_to_column(chart.columnIDs[i],str(data[i]))
-	chart.setup_column_seperators(len(chart.columns),len(chart.lbllocations[str(chart.columnIDs["teamNumber"])]))
 	print(len(Globals.picked_teams))
 	for i in Globals.picked_teams:
 		add_pick(i)
