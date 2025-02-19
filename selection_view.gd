@@ -57,6 +57,7 @@ func _on_button_button_down() -> void:
 	for i in Globals.picked_teams:
 		add_pick(i)
 
+
 func summarize_data(spreadsheet_data):
 	var saved_data:Dictionary = {}
 	for x in spreadsheet_data.keys():
