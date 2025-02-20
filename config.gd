@@ -7,6 +7,17 @@ extends Control
 @onready var question_label: Label = %question_label
 @onready var main: Node2D = %main
 @onready var use_saved_data: Node2D = %use_saved_data
+@onready var line_edit: LineEdit = %LineEdit
+@onready var button: Button = %Button
+@onready var done: Button = %done
+@onready var item_list: ItemList = %ItemList
+var spreadsheet:Dictionary
+@onready var config_teams: Node2D = %config_teams
+@onready var is_died: Button = %"Is Died"
+
+
+
+
 var spreadsheet_path:="user://frc_scouting_app_spreadsheet_data.json"
 var main_scene:PackedScene = load("res://imports.tscn")
 var current_ans:int
@@ -18,10 +29,10 @@ signal use_saved()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	print("/")
+	config_teams.hide()
 	get_window().files_dropped.connect(files_import)
 	var filestring = FileAccess.get_file_as_string(save_path)
 	var json_data
-	var spreadsheet
 	print(filestring)
 	if filestring != null:
 		main.hide()
@@ -46,12 +57,11 @@ func _ready() -> void:
 
 func files_import(files:Array):
 	if !configured:
-		
+		Settings.whitelist = []
 		main.show()
 		use_saved_data.hide()
 		configured = true
 		print(files)
-		var spreadsheet:Dictionary
 		for i in files:
 			if i.ends_with(".json"):
 				print("valid file")
@@ -103,7 +113,7 @@ func files_import(files:Array):
 			center_text_label.text = "Only a JSON is supported"
 		Settings.save()
 		Settings.save_spreadsheet(spreadsheet)
-		get_tree().change_scene_to_packed(main_scene)
+		configure_teams()
 
 
 func _on_dont_track_button_down() -> void:
@@ -131,3 +141,36 @@ func _on_no_button_down() -> void:
 	use_saved.emit()
 	print("false")
 	
+func configure_teams():
+	main.hide()
+	use_saved_data.hide()
+	config_teams.show()
+	
+
+
+func _on_button_button_down() -> void:
+	Settings.whitelist = []
+	for i in spreadsheet.values():
+		if i[Settings.team_number_ID] not in Settings.current_teams:
+			Settings.current_teams.append(i[Settings.team_number_ID])
+	get_tree().change_scene_to_packed(main_scene)
+	
+
+
+func _on_line_edit_text_submitted(new_text: String) -> void:
+	if new_text.is_valid_int() and new_text not in Settings.current_teams:
+		line_edit.placeholder_text = "Enter what team you want to track"
+		Settings.current_teams.append(new_text)
+		item_list.add_item(new_text,null,false)
+	elif new_text in Settings.current_teams:
+		line_edit.placeholder_text = "You Have Already Entered That"
+	else:
+		line_edit.placeholder_text = "Enter a Valid Team Number"
+
+
+func _on_done_button_down() -> void:
+	get_tree().change_scene_to_packed(main_scene)
+
+
+func _on_is_died_button_down() -> void:
+	pass # Replace with function body.

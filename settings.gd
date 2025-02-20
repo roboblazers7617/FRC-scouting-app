@@ -6,6 +6,7 @@ var team_number_ID:String
 var spreadsheet_path="user://frc_scouting_app_spreadsheet_data.json"
 var save_path := "user://frc_scouting_app_save_data.json"
 var spreadsheet
+var died_ID:String
 var save_data:Dictionary = {
 	"whitelist":whitelist,
 	"current_teams":current_teams,

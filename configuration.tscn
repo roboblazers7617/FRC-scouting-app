@@ -78,36 +78,87 @@ metadata/_edit_use_anchors_ = true
 
 [node name="use_saved_data" type="Node2D" parent="."]
 unique_name_in_owner = true
+visible = false
 
 [node name="yes" type="Button" parent="use_saved_data"]
-offset_left = 500.0
+offset_left = 400.0
 offset_top = 350.0
-offset_right = 700.0
+offset_right = 600.0
 offset_bottom = 550.0
 theme_override_font_sizes/font_size = 50
 text = "Yes"
 
 [node name="no" type="Button" parent="use_saved_data"]
-offset_left = 1420.0
+offset_left = 1320.0
 offset_top = 350.0
-offset_right = 1620.0
+offset_right = 1520.0
 offset_bottom = 550.0
 theme_override_font_sizes/font_size = 50
 text = "No"
 
 [node name="center text label2" type="Label" parent="use_saved_data"]
 unique_name_in_owner = true
-offset_left = 685.0
+offset_left = 585.0
 offset_top = 375.0
-offset_right = 1415.0
+offset_right = 1315.0
 offset_bottom = 516.0
 theme_override_font_sizes/font_size = 50
 text = "Do you want to use 
 Saved Data?"
 horizontal_alignment = 1
 
+[node name="config_teams" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="center text label3" type="Label" parent="config_teams"]
+unique_name_in_owner = true
+offset_left = 585.0
+offset_top = 250.0
+offset_right = 1315.0
+offset_bottom = 391.0
+theme_override_font_sizes/font_size = 50
+text = "Enter teams that you want to Track"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="LineEdit" type="LineEdit" parent="config_teams"]
+unique_name_in_owner = true
+offset_left = 560.0
+offset_top = 400.0
+offset_right = 1360.0
+offset_bottom = 550.0
+theme_override_font_sizes/font_size = 40
+placeholder_text = "Enter what team you want to track"
+alignment = 1
+
+[node name="Button" type="Button" parent="config_teams"]
+unique_name_in_owner = true
+offset_left = 460.0
+offset_top = 800.0
+offset_right = 1460.0
+offset_bottom = 877.0
+theme_override_font_sizes/font_size = 50
+text = "Use all teams in list"
+
+[node name="done" type="Button" parent="config_teams"]
+unique_name_in_owner = true
+offset_left = 460.0
+offset_top = 600.0
+offset_right = 1460.0
+offset_bottom = 677.0
+theme_override_font_sizes/font_size = 50
+text = "Finished"
+
+[node name="ItemList" type="ItemList" parent="config_teams"]
+unique_name_in_owner = true
+offset_right = 428.0
+offset_bottom = 182.0
+
 [connection signal="button_down" from="main/buttons/don\'t track" to="." method="_on_dont_track_button_down"]
 [connection signal="button_down" from="main/buttons/track" to="." method="_on_track_button_down"]
 [connection signal="button_down" from="main/buttons/Is team number ID" to="." method="_on_is_team_number_id_button_down"]
 [connection signal="button_down" from="use_saved_data/yes" to="." method="_on_yes_button_down"]
 [connection signal="button_down" from="use_saved_data/no" to="." method="_on_no_button_down"]
+[connection signal="text_submitted" from="config_teams/LineEdit" to="." method="_on_line_edit_text_submitted"]
+[connection signal="button_down" from="config_teams/Button" to="." method="_on_button_button_down"]
+[connection signal="button_down" from="config_teams/done" to="." method="_on_done_button_down"]
