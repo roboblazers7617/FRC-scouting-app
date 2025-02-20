@@ -7,7 +7,7 @@ extends Control
 @onready var question_label: Label = %question_label
 @onready var main: Node2D = %main
 @onready var use_saved_data: Node2D = %use_saved_data
-
+var spreadsheet_path:="user://frc_scouting_app_spreadsheet_data.json"
 var main_scene:PackedScene = load("res://imports.tscn")
 var current_ans:int
 signal is_answered(ans:int)
@@ -126,3 +126,12 @@ func _on_no_button_down() -> void:
 	saved_ans = false
 	use_saved.emit()
 	print("false")
+	
+func save_spreadsheet(spreadsheet):
+	var json_string := JSON.stringify(spreadsheet)
+	var file_access := FileAccess.open(spreadsheet_path, FileAccess.WRITE)
+	if not file_access:
+		print("An error happened while saving data: ", FileAccess.get_open_error())
+		return
+	file_access.store_line(json_string)
+	file_access.close()
