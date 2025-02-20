@@ -1,5 +1,5 @@
 extends Node2D
-var spreadsheet_path:String = "res://spreadsheets/Scouting.json"
+var spreadsheet_path:String = Settings.spreadsheet_path
 var spreadsheet_data
 var sheet_name:String = "2024incmp_qm"
 # Called when the node enters the scene tree for the first time.
@@ -43,11 +43,11 @@ func _on_button_button_down() -> void:
 			var data = summarized_data.get(x)
 			if first_round:
 				first_round = false
-				chart.create_column("teamNumber")
+				chart.create_column(Settings.team_number_ID)
 				for i in data.keys():
 					if i in Settings.whitelist:
 						chart.create_column(i)
-			chart.add_item_to_column(chart.columnIDs["teamNumber"],x)
+			chart.add_item_to_column(chart.columnIDs[Settings.team_number_ID],x)
 			for i in data.keys():
 				if i not in Settings.whitelist:
 					continue
@@ -62,17 +62,17 @@ func summarize_data(spreadsheet_data):
 	var saved_data:Dictionary = {}
 	for x in spreadsheet_data.keys():
 		var data = spreadsheet_data.get(str(x))
-		if str(data["teamNumber"]) in saved_data.keys():
+		if str(data[Settings.team_number_ID]) in saved_data.keys():
 			for i in data.keys():
-				if i in Settings.whitelist and i != "teamNumber" and data["died"] != 1 or i == "died" :
-					saved_data[str(data["teamNumber"])][i]+=int(data[i])
+				if i in Settings.whitelist and i != Settings.team_number_ID and data["died"] != 1 or i == "died" :
+					saved_data[str(data[Settings.team_number_ID])][i]+=int(data[i])
 			if int(data["died"])!=1:
-				saved_data[str(data["teamNumber"])]["matchesplayed"]+=1
+				saved_data[str(data[Settings.team_number_ID])]["matchesplayed"]+=1
 		else:
-			if str(data["teamNumber"]) in Settings.current_teams:
+			if str(data[Settings.team_number_ID]) in Settings.current_teams:
 				var new_dict:Dictionary = {}
 				for i in data.keys():
-					if i in Settings.whitelist and i != "teamNumber":
+					if i in Settings.whitelist and i != Settings.team_number_ID:
 						if data["died"] != 1 or  i == "died":
 							new_dict[i]=int(data[i])
 						else:
@@ -81,7 +81,7 @@ func summarize_data(spreadsheet_data):
 							new_dict["matchesplayed"]=0
 						else:
 							new_dict["matchesplayed"]=1
-				saved_data[str(data["teamNumber"])] = new_dict
+				saved_data[str(data[Settings.team_number_ID])] = new_dict
 	for x in saved_data.keys():
 		for y in saved_data[x].keys():
 			if y != "matchesplayed" and y!= "died":

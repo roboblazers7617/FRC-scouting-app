@@ -1,6 +1,6 @@
 extends Node2D
 @onready var title: Label = %title
-var spreadsheet_path:String = "res://spreadsheets/Scouting.json"
+var spreadsheet_path:String = Settings.spreadsheet_path
 var spreadsheet_data:Dictionary
 @onready var chart: chart = %chart
 @onready var button: Button = %Button
@@ -18,7 +18,7 @@ func setup(team:String):
 	var tracked_matches:Array = []
 	title.text = team
 	for i in spreadsheet_data.keys():
-		if str(spreadsheet_data[i]["teamNumber"]) == team:
+		if str(spreadsheet_data[i][Settings.team_number_ID]) == team:
 			tracked_matches.append(i)
 	for i in spreadsheet_data[tracked_matches[0]].keys():
 			if i in Settings.whitelist:

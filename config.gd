@@ -22,6 +22,7 @@ func _ready() -> void:
 	var filestring = FileAccess.get_file_as_string(save_path)
 	var json_data
 	var spreadsheet
+	print(filestring)
 	if filestring != null:
 		main.hide()
 		use_saved_data.show()
@@ -42,10 +43,10 @@ func _ready() -> void:
 	else:
 		print("path does not lead to a file")
 		
-		
 
 func files_import(files:Array):
 	if !configured:
+		
 		main.show()
 		use_saved_data.hide()
 		configured = true
@@ -81,6 +82,7 @@ func files_import(files:Array):
 						spreadsheet = spreadsheet.get(i)
 						print(spreadsheet.keys())
 						break
+			Settings.save_spreadsheet(spreadsheet.values()[0])
 			don_t_track.show()
 			track.show()
 			is_team_number_id.show()
@@ -96,9 +98,11 @@ func files_import(files:Array):
 					Settings.whitelist.append(i)
 				if current_ans == -1:
 					Settings.team_number_ID = i
+					Settings.whitelist.append(i)
 		else:
 			center_text_label.text = "Only a JSON is supported"
 		Settings.save()
+		Settings.save_spreadsheet(spreadsheet)
 		get_tree().change_scene_to_packed(main_scene)
 
 
@@ -127,11 +131,3 @@ func _on_no_button_down() -> void:
 	use_saved.emit()
 	print("false")
 	
-func save_spreadsheet(spreadsheet):
-	var json_string := JSON.stringify(spreadsheet)
-	var file_access := FileAccess.open(spreadsheet_path, FileAccess.WRITE)
-	if not file_access:
-		print("An error happened while saving data: ", FileAccess.get_open_error())
-		return
-	file_access.store_line(json_string)
-	file_access.close()

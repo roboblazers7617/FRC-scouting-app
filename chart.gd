@@ -41,7 +41,7 @@ func create_column(column_name:String):
 	new_label.horizontal_alignment = 1
 	new_label.vertical_alignment = 1
 	#if the column is not teamNumber, adds a script to sort by that column value whenever the label is clicked
-	if column_name != "teamNumber":
+	if column_name != Settings.team_number_ID:
 		new_label.set_script(column_script)
 	#adds the label as a child of the chart
 	self.add_child(new_label)
@@ -103,10 +103,10 @@ func add_item_to_column(ID:int,new_value:String):
 	new_label.size = Vector2(lblwidth,lblheight)
 	new_label.horizontal_alignment = 1
 	new_label.text = new_value
-	if individual_ready and columns[ID].text == "teamNumber":
+	if individual_ready and columns[ID].text == Settings.team_number_ID:
 		new_label.mouse_filter = 1
 		new_label.set_script(team_number_script)
-	elif selection_ready and columns[ID].text == "teamNumber":
+	elif selection_ready and columns[ID].text == Settings.team_number_ID:
 		new_label.mouse_filter = 1
 		new_label.set_script(selection_number_script)
 	lbllocations[str(ID)].append(new_label)
@@ -134,12 +134,12 @@ func sort_column_element(team_number:String,pos:int,amount_of_available_teams:in
 			for i in lbllocations[k]:
 				copy_of_lbllocations[k].append(i.text)
 	var counter:int = 0
-	for x in copy_of_lbllocations[str(columnIDs["teamNumber"])]:
+	for x in copy_of_lbllocations[str(columnIDs[Settings.team_number_ID])]:
 		if x == team_number:
 			index = str(counter)
 			break
 		else:
-			if counter ==copy_of_lbllocations[str(columnIDs["teamNumber"])].size() -1:
+			if counter ==copy_of_lbllocations[str(columnIDs[Settings.team_number_ID])].size() -1:
 				print("not found", "     ", team_number)
 		counter +=1
 	for k in columnIDs.values():
