@@ -1,0 +1,113 @@
+[gd_scene load_steps=2 format=3 uid="uid://cb7tot2jf331q"]
+
+[ext_resource type="Script" path="res://config.gd" id="1_8cmkl"]
+
+[node name="Configuration" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_8cmkl")
+
+[node name="bg" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0, 1)
+
+[node name="main" type="Node2D" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="center text label" type="Label" parent="main"]
+unique_name_in_owner = true
+offset_left = 645.0
+offset_top = 450.0
+offset_right = 1375.0
+offset_bottom = 591.0
+theme_override_font_sizes/font_size = 50
+text = "Drag And Drop Files anywhere
+(only JSON supported)"
+horizontal_alignment = 1
+
+[node name="question_label" type="Label" parent="main"]
+unique_name_in_owner = true
+visible = false
+offset_left = 535.0
+offset_top = 450.0
+offset_right = 1265.0
+offset_bottom = 591.0
+theme_override_font_sizes/font_size = 50
+text = "Do you want to track
+Team Number"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="buttons" type="Node2D" parent="main"]
+unique_name_in_owner = true
+
+[node name="don\'t track" type="Button" parent="main/buttons"]
+unique_name_in_owner = true
+visible = false
+offset_left = 1260.0
+offset_top = 600.0
+offset_right = 1460.0
+offset_bottom = 650.0
+theme_override_font_sizes/font_size = 30
+text = "No"
+metadata/_edit_use_anchors_ = true
+
+[node name="track" type="Button" parent="main/buttons"]
+unique_name_in_owner = true
+visible = false
+offset_left = 1260.0
+offset_top = 400.0
+offset_right = 1460.0
+offset_bottom = 450.0
+theme_override_font_sizes/font_size = 30
+text = "Yes "
+metadata/_edit_use_anchors_ = true
+
+[node name="Is team number ID" type="Button" parent="main/buttons"]
+unique_name_in_owner = true
+visible = false
+offset_left = 1260.0
+offset_top = 500.0
+offset_right = 1497.0
+offset_bottom = 550.0
+theme_override_font_sizes/font_size = 30
+metadata/_edit_use_anchors_ = true
+
+[node name="use_saved_data" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="yes" type="Button" parent="use_saved_data"]
+offset_left = 500.0
+offset_top = 350.0
+offset_right = 700.0
+offset_bottom = 550.0
+theme_override_font_sizes/font_size = 50
+text = "Yes"
+
+[node name="no" type="Button" parent="use_saved_data"]
+offset_left = 1420.0
+offset_top = 350.0
+offset_right = 1620.0
+offset_bottom = 550.0
+theme_override_font_sizes/font_size = 50
+text = "No"
+
+[node name="center text label2" type="Label" parent="use_saved_data"]
+unique_name_in_owner = true
+offset_left = 685.0
+offset_top = 375.0
+offset_right = 1415.0
+offset_bottom = 516.0
+theme_override_font_sizes/font_size = 50
+text = "Do you want to use 
+Saved Data?"
+horizontal_alignment = 1
+
+[connection signal="button_down" from="main/buttons/don\'t track" to="." method="_on_dont_track_button_down"]
+[connection signal="button_down" from="main/buttons/track" to="." method="_on_track_button_down"]
+[connection signal="button_down" from="main/buttons/Is team number ID" to="." method="_on_is_team_number_id_button_down"]
+[connection signal="button_down" from="use_saved_data/yes" to="." method="_on_yes_button_down"]
+[connection signal="button_down" from="use_saved_data/no" to="." method="_on_no_button_down"]

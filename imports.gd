@@ -4,7 +4,6 @@ var spreadsheet_data
 var sheet_name:String = "2024incmp_qm"
 # Called when the node enters the scene tree for the first time.
 @onready var chart:Node2D = %chart
-@onready var button: Button = %Button
 var summarized_data
 @onready var indicator_arrow: AnimatedSprite2D = %"indicator arrow"
 var currently_sorted:String
