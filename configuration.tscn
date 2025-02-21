@@ -15,7 +15,6 @@ color = Color(0, 0, 0, 1)
 
 [node name="main" type="Node2D" parent="."]
 unique_name_in_owner = true
-visible = false
 
 [node name="center text label" type="Label" parent="main"]
 unique_name_in_owner = true
@@ -75,6 +74,27 @@ offset_right = 1497.0
 offset_bottom = 550.0
 theme_override_font_sizes/font_size = 30
 metadata/_edit_use_anchors_ = true
+
+[node name="Is Died" type="Button" parent="main/buttons"]
+unique_name_in_owner = true
+visible = false
+offset_left = 1500.0
+offset_top = 500.0
+offset_right = 1737.0
+offset_bottom = 550.0
+theme_override_font_sizes/font_size = 30
+text = "Is Died/broke"
+metadata/_edit_use_anchors_ = true
+
+[node name="use_previously_configured" type="Button" parent="main/buttons"]
+unique_name_in_owner = true
+visible = false
+offset_left = 635.0
+offset_top = 200.0
+offset_right = 1285.0
+offset_bottom = 280.0
+theme_override_font_sizes/font_size = 50
+text = "Use Previously Configured"
 
 [node name="use_saved_data" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -152,13 +172,35 @@ text = "Finished"
 [node name="ItemList" type="ItemList" parent="config_teams"]
 unique_name_in_owner = true
 offset_right = 428.0
-offset_bottom = 182.0
+offset_bottom = 1080.0
+item_count = 1
+item_0/text = "Selected_Teams"
+
+[node name="ItemList2" type="ItemList" parent="config_teams"]
+unique_name_in_owner = true
+offset_left = 1492.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+item_count = 1
+item_0/text = "Possible_Teams"
+
+[node name="use_previously_configured2" type="Button" parent="config_teams"]
+unique_name_in_owner = true
+offset_left = 635.0
+offset_top = 100.0
+offset_right = 1285.0
+offset_bottom = 180.0
+theme_override_font_sizes/font_size = 50
+text = "Use Previously Configured"
 
 [connection signal="button_down" from="main/buttons/don\'t track" to="." method="_on_dont_track_button_down"]
 [connection signal="button_down" from="main/buttons/track" to="." method="_on_track_button_down"]
 [connection signal="button_down" from="main/buttons/Is team number ID" to="." method="_on_is_team_number_id_button_down"]
+[connection signal="button_down" from="main/buttons/Is Died" to="." method="_on_is_died_button_down"]
+[connection signal="button_down" from="main/buttons/use_previously_configured" to="." method="_on_use_previously_configured_button_down"]
 [connection signal="button_down" from="use_saved_data/yes" to="." method="_on_yes_button_down"]
 [connection signal="button_down" from="use_saved_data/no" to="." method="_on_no_button_down"]
 [connection signal="text_submitted" from="config_teams/LineEdit" to="." method="_on_line_edit_text_submitted"]
 [connection signal="button_down" from="config_teams/Button" to="." method="_on_button_button_down"]
 [connection signal="button_down" from="config_teams/done" to="." method="_on_done_button_down"]
+[connection signal="button_down" from="config_teams/use_previously_configured2" to="." method="_on_use_previously_configured_2_button_down"]

@@ -6,7 +6,7 @@ var sheet_name:String = "2024incmp_qm"
 @onready var chart:Node2D = %chart
 var summarized_data:Dictionary
 @onready var indicator_arrow: AnimatedSprite2D = %"indicator arrow"
-var currently_sorted:String = Settings.whitelist[1]
+var currently_sorted:String = Settings.whitelist[-1]
 var descending:bool = false
 var picked_teams:Array = []
 @onready var teams_selection: Node2D = %teams_selection
@@ -64,32 +64,32 @@ func summarize_data(spreadsheet_data):
 		var data = spreadsheet_data.get(str(x))
 		if str(data[Settings.team_number_ID]) in saved_data.keys():
 			for i in data.keys():
-				if i in Settings.whitelist and i != Settings.team_number_ID and data["died"] != 1 or i == "died" :
+				if i in Settings.whitelist and i != Settings.team_number_ID and data[Settings.died_ID] != 1 or i == Settings.died_ID :
 					saved_data[str(data[Settings.team_number_ID])][i]+=int(data[i])
-			if int(data["died"])!=1:
+			if int(data[Settings.died_ID])!=1:
 				saved_data[str(data[Settings.team_number_ID])]["matchesplayed"]+=1
 		else:
 			if str(data[Settings.team_number_ID]) in Settings.current_teams:
 				var new_dict:Dictionary = {}
 				for i in data.keys():
 					if i in Settings.whitelist and i != Settings.team_number_ID:
-						if data["died"] != 1 or  i == "died":
+						if data[Settings.died_ID] != 1 or  i == Settings.died_ID:
 							new_dict[i]=int(data[i])
 						else:
 							new_dict[i] = 0
-						if int(data["died"]) == 1:
+						if int(data[Settings.died_ID]) == 1:
 							new_dict["matchesplayed"]=0
 						else:
 							new_dict["matchesplayed"]=1
 				saved_data[str(data[Settings.team_number_ID])] = new_dict
 	for x in saved_data.keys():
 		for y in saved_data[x].keys():
-			if y != "matchesplayed" and y!= "died":
+			if y != "matchesplayed" and y!= Settings.died_ID:
 				if float(saved_data[x]["matchesplayed"]) != 0:
 					saved_data[x][y] = round_place(float(saved_data[x][y])/float(saved_data[x]["matchesplayed"]),3)
 				else:
 					saved_data[x][y] = 0
-			elif y == "died":
+			elif y == Settings.died_ID:
 				saved_data[x][y] = round_place(float(saved_data[x][y])/(float(saved_data[x]["matchesplayed"])+1),3)
 	return saved_data
 

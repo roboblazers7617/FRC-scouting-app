@@ -14,10 +14,12 @@ extends Control
 var spreadsheet:Dictionary
 @onready var config_teams: Node2D = %config_teams
 @onready var is_died: Button = %"Is Died"
+@onready var use_previously_configured: Button = %use_previously_configured
+var possible_teams:Array = []
+@onready var item_list_2: ItemList = %ItemList2
 
 
-
-
+var saved_spreadsheet:Dictionary
 var spreadsheet_path:="user://frc_scouting_app_spreadsheet_data.json"
 var main_scene:PackedScene = load("res://imports.tscn")
 var current_ans:int
@@ -37,15 +39,16 @@ func _ready() -> void:
 	if filestring != null:
 		main.hide()
 		use_saved_data.show()
-		spreadsheet = JSON.parse_string(filestring)
-		Settings.whitelist =spreadsheet["whitelist"]
-		Settings.current_teams =spreadsheet["current_teams"]
-		Settings.team_number_ID =spreadsheet["team_number_ID"]
-		Settings.save()
+		saved_spreadsheet = JSON.parse_string(filestring)
 		main.hide()
 		use_saved_data.show()
 		await use_saved
 		if saved_ans:
+			Settings.whitelist =saved_spreadsheet["whitelist"]
+			Settings.current_teams =saved_spreadsheet["current_teams"]
+			Settings.team_number_ID =saved_spreadsheet["team_number_ID"]
+			Settings.died_ID = saved_spreadsheet["died_ID"]
+			Settings.save()
 			get_tree().change_scene_to_packed(main_scene)
 		else:
 			configured = false
@@ -82,6 +85,7 @@ func files_import(files:Array):
 			don_t_track.show()
 			track.show()
 			is_team_number_id.hide()
+			use_previously_configured.hide()
 			question_label.text = "Does " +str(len(spreadsheet.keys()))+" seem like a reasonable number of matches scouted"
 			await self.is_answered
 			if current_ans == 0:
@@ -96,18 +100,22 @@ func files_import(files:Array):
 			don_t_track.show()
 			track.show()
 			is_team_number_id.show()
+			use_previously_configured.show()
+			is_died.show()
 			don_t_track.text = "Don't Track"
 			track.text = "Track"
 			is_team_number_id.text = "Is Team Number"
 			for i in spreadsheet.values()[0].keys():
-				print(i)
 				question_label.text = "Do you want to track "+i+"?
 				Only ints or floats will work(other than team num)"
 				await self.is_answered
 				if current_ans ==1:
 					Settings.whitelist.append(i)
-				if current_ans == -1:
+				elif current_ans == -1:
 					Settings.team_number_ID = i
+					Settings.whitelist.append(i)
+				elif  current_ans == -2:
+					Settings.died_ID = i
 					Settings.whitelist.append(i)
 		else:
 			center_text_label.text = "Only a JSON is supported"
@@ -142,35 +150,65 @@ func _on_no_button_down() -> void:
 	print("false")
 	
 func configure_teams():
+	print(Settings.current_teams)
 	main.hide()
 	use_saved_data.hide()
 	config_teams.show()
+	for i in spreadsheet.values():
+		if str(i[Settings.team_number_ID]) not in possible_teams:
+			possible_teams.append(str(i[Settings.team_number_ID]))
+	for i in possible_teams:
+		item_list_2.add_item(i,null,false)
 	
 
 
 func _on_button_button_down() -> void:
-	Settings.whitelist = []
+	Settings.current_teams = []
 	for i in spreadsheet.values():
-		if i[Settings.team_number_ID] not in Settings.current_teams:
-			Settings.current_teams.append(i[Settings.team_number_ID])
+		if str(i[Settings.team_number_ID]) not in Settings.current_teams:
+			Settings.current_teams.append(str(i[Settings.team_number_ID]))
+	print(Settings.current_teams)
+	Settings.save()
 	get_tree().change_scene_to_packed(main_scene)
 	
 
 
 func _on_line_edit_text_submitted(new_text: String) -> void:
-	if new_text.is_valid_int() and new_text not in Settings.current_teams:
+	if new_text.is_valid_int() and new_text not in Settings.current_teams and new_text in possible_teams:
 		line_edit.placeholder_text = "Enter what team you want to track"
 		Settings.current_teams.append(new_text)
 		item_list.add_item(new_text,null,false)
+		for i in range(item_list_2.item_count):
+			if item_list_2.get_item_text(i) == new_text:
+				item_list_2.remove_item(i)
+				break
 	elif new_text in Settings.current_teams:
 		line_edit.placeholder_text = "You Have Already Entered That"
 	else:
 		line_edit.placeholder_text = "Enter a Valid Team Number"
+	line_edit.text = ""
 
 
 func _on_done_button_down() -> void:
+	Settings.save()
 	get_tree().change_scene_to_packed(main_scene)
 
 
 func _on_is_died_button_down() -> void:
-	pass # Replace with function body.
+	current_ans = -2
+	is_died.hide()
+	is_answered.emit(-2)
+
+
+func _on_use_previously_configured_button_down() -> void:
+	Settings.whitelist =saved_spreadsheet["whitelist"]
+	Settings.team_number_ID =saved_spreadsheet["team_number_ID"]
+	Settings.died_ID = saved_spreadsheet["died_ID"]
+	Settings.save_spreadsheet(spreadsheet)
+	Settings.save()
+	configure_teams()
+
+
+func _on_use_previously_configured_2_button_down() -> void:
+	Settings.current_teams = saved_spreadsheet["current_teams"]
+	get_tree().change_scene_to_packed(main_scene)

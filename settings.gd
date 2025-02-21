@@ -1,12 +1,11 @@
 extends Node
 var whitelist:Array = []
-var current_teams:Array = ["447","2867","97","9644","1073","501","5422","166","4909","1768"
-,"8567","5687","1153","190","8724","2342","4761","1729","1501","88","2877"]
+var current_teams:Array = []
 var team_number_ID:String
 var spreadsheet_path="user://frc_scouting_app_spreadsheet_data.json"
 var save_path := "user://frc_scouting_app_save_data.json"
 var spreadsheet
-var died_ID:String
+var died_ID:String = "died"
 var save_data:Dictionary = {
 	"whitelist":whitelist,
 	"current_teams":current_teams,
@@ -17,7 +16,8 @@ func save() -> void:
 	save_data = {
 	"whitelist":whitelist,
 	"current_teams":current_teams,
-	"team_number_ID":team_number_ID
+	"team_number_ID":team_number_ID,
+	"died_ID":died_ID
 	}
 	var json_string := JSON.stringify(save_data)
 
