@@ -1,9 +1,9 @@
-#Objective
+# Objective
 This program is meant to allow for easy viewing and analyzation of scouting data at FRC tournaments
 It was originally designed by team 7617 for the 2025 season. 
 It is programmed in Godot game engine, using GDscript
 
-#How-To-Configure
+# How-To-Configure
 
 When opening the program, Select first if you want to used saved config data(select no if you have not configured before)
 Drag and Drop a JSON file of relevant raw scouting data(by the match)
@@ -31,7 +31,7 @@ This is useful for combining multiple tournaments worth of data, but only tracki
 At any point in the configuration process(other than the spreadsheet import) you will have the option to use previous configuration data.
 This can be used if you only want to reconfigure either the tracked statistics or tracked teams. These buttons should only be used if you have configured before
 
-#How-To-Use-|-Main-View
+# How-To-Use-|-Main-View
 
 Main view is meant to view data before alliance selection, and as a pathway to other views
 
@@ -43,7 +43,7 @@ You can click on any of the team's numbers, and it will bring you to it's respec
 
 You may also click the large button at the top of the screen labeled selection view. this will bring you to the selection view
 
-#How-To-Use-|-Individual-View
+# How-To-Use-|-Individual-View
 
 In the individual view, you can view a chart with all matches played by the selected team
 All matches are displayed in order and cannot be sorted.
@@ -51,7 +51,7 @@ All matches are displayed in order and cannot be sorted.
 This is useful for viewing a teams individual matches during the day
 For example if a robot broke at the beginning of the day and got fixed, you can see that a high died/broke rate was centered around one time period
 
-#How-To-Use-|-Selection-View
+# How-To-Use-|-Selection-View
 
 This view is meant for during alliance selection, while on the field, and making picks.
 
