@@ -48,6 +48,7 @@ func _ready() -> void:
 			Settings.current_teams =saved_spreadsheet["current_teams"]
 			Settings.team_number_ID =saved_spreadsheet["team_number_ID"]
 			Settings.died_ID = saved_spreadsheet["died_ID"]
+			Settings.load_spreadsheet()
 			Settings.save()
 			get_tree().change_scene_to_packed(main_scene)
 		else:
@@ -142,15 +143,12 @@ func _on_is_team_number_id_button_down() -> void:
 func _on_yes_button_down() -> void:
 	saved_ans = true
 	use_saved.emit()
-	print("y")
 
 func _on_no_button_down() -> void:
 	saved_ans = false
 	use_saved.emit()
-	print("false")
 	
 func configure_teams():
-	print(Settings.current_teams)
 	main.hide()
 	use_saved_data.hide()
 	config_teams.show()

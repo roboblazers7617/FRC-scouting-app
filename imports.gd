@@ -57,19 +57,21 @@ func summarize_data(spreadsheet_data):
 	var saved_data:Dictionary = {}
 	for x in spreadsheet_data.keys():
 		var data = spreadsheet_data.get(str(x))
-		print(data)
-		print(x)
-		print(spreadsheet_data)
 		if str(data[Settings.team_number_ID]) in saved_data.keys():
 			for i in saved_data.keys():
-				if i in Settings.whitelist and i != Settings.team_number_ID and data[Settings.died_ID] != 1 or i == Settings.died_ID :
+				if (i in Settings.whitelist and i != Settings.team_number_ID and data[Settings.died_ID] != 1) or i == Settings.died_ID :
 					print(data[i])
 					print(i)
 					print(saved_data[str(data[Settings.team_number_ID])].keys())
 					saved_data[str(data[Settings.team_number_ID])][i]+=int(data[i])
+				else:
+					print(i in Settings.whitelist)
+					print(i != Settings.team_number_ID)
+					print(data[Settings.died_ID] != 1)
 			if int(data[Settings.died_ID])!=1:
 				saved_data[str(data[Settings.team_number_ID])]["matchesplayed"]+=1
-		elif str(data[Settings.team_number_ID]) not in saved_data.keys():
+		else:
+			print(Settings.current_teams,"             ", data[Settings.team_number_ID])
 			if str(data[Settings.team_number_ID]) in Settings.current_teams:
 				print(data[Settings.team_number_ID])
 				var new_dict:Dictionary = {}
