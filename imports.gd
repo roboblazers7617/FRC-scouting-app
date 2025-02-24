@@ -79,8 +79,6 @@ func summarize_data(spreadsheet_data):
 					if i in Settings.whitelist and i != Settings.team_number_ID:
 						print(Settings.died_ID)
 						if data[Settings.died_ID] != 1 or  i == Settings.died_ID and i in Settings.whitelist:
-							#print(data[i])
-							#print(i)
 							new_dict[i]=int(data[i])
 						else:
 							new_dict[i] = 0

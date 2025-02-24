@@ -17,6 +17,7 @@ var spreadsheet:Dictionary
 @onready var use_previously_configured: Button = %use_previously_configured
 var possible_teams:Array = []
 @onready var item_list_2: ItemList = %ItemList2
+@onready var back_button: Button = %back_button
 
 
 var saved_spreadsheet:Dictionary
@@ -98,6 +99,7 @@ func files_import(files:Array):
 						print(spreadsheet.keys())
 						break
 			Settings.save_spreadsheet(spreadsheet.values()[0])
+			Settings.load_spreadsheet()
 			don_t_track.show()
 			track.show()
 			is_team_number_id.show()
@@ -106,18 +108,44 @@ func files_import(files:Array):
 			don_t_track.text = "Don't Track"
 			track.text = "Track"
 			is_team_number_id.text = "Is Team Number"
-			for i in spreadsheet.values()[0].keys():
-				question_label.text = "Do you want to track "+i+"?
-				Only ints or floats will work(other than team num)"
-				await self.is_answered
-				if current_ans ==1:
-					Settings.whitelist.append(i)
-				elif current_ans == -1:
-					Settings.team_number_ID = i
-					Settings.whitelist.append(i)
-				elif  current_ans == -2:
-					Settings.died_ID = i
-					Settings.whitelist.append(i)
+			back_button.show()
+			var stat_index:int = 0
+			while stat_index < spreadsheet.values()[0].keys().size():
+				if str(spreadsheet.values()[0][spreadsheet.values()[0].keys()[stat_index]]).is_valid_float() and str(spreadsheet.values()[0][spreadsheet.values()[0].keys()[stat_index]]) != "":
+					question_label.text = "Do you want to track "+spreadsheet.values()[0].keys()[stat_index]+"?
+					Only ints or floats will work(other than team num)"
+					await self.is_answered
+					if current_ans ==1:
+						Settings.whitelist.append(spreadsheet.values()[0].keys()[stat_index])
+					elif current_ans == -1:
+						Settings.team_number_ID = spreadsheet.values()[0].keys()[stat_index]
+						Settings.whitelist.append(spreadsheet.values()[0].keys()[stat_index])
+					elif  current_ans == -2:
+						Settings.died_ID = spreadsheet.values()[0].keys()[stat_index]
+						Settings.whitelist.append(spreadsheet.values()[0].keys()[stat_index])
+					elif  current_ans == -3:
+						if spreadsheet.values()[0].keys()[stat_index-1] in Settings.whitelist:
+							Settings.whitelist.remove_at(Settings.whitelist.size() - 1)
+						if Settings.died_ID == spreadsheet.values()[0].keys()[stat_index-1]:
+							Settings.whitelist.remove_at(Settings.whitelist.size() - 1)
+							Settings.died_ID = ""
+							is_died.show()
+						elif Settings.team_number_ID == spreadsheet.values()[0].keys()[stat_index-1]:
+							Settings.team_number_ID = ""
+							Settings.whitelist.remove_at(Settings.whitelist.size() - 1)
+							is_team_number_id.show()
+						stat_index-=2
+						while true:
+							print("re")
+							if str(spreadsheet.values()[0][spreadsheet.values()[0].keys()[stat_index+1]]).is_valid_float() and str(spreadsheet.values()[0][spreadsheet.values()[0].keys()[stat_index+1]]) != "":
+								break
+							else:
+								stat_index-=1
+						if stat_index <-1:
+							stat_index = -1
+				else:
+					print(spreadsheet.values()[0].keys()[stat_index])
+				stat_index+=1
 		else:
 			center_text_label.text = "Only a JSON is supported"
 		Settings.save()
@@ -210,3 +238,8 @@ func _on_use_previously_configured_button_down() -> void:
 func _on_use_previously_configured_2_button_down() -> void:
 	Settings.current_teams = saved_spreadsheet["current_teams"]
 	get_tree().change_scene_to_packed(main_scene)
+
+
+func _on_back_button_button_down() -> void:
+	current_ans = -3
+	is_answered.emit(-3)

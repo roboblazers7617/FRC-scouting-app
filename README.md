@@ -13,12 +13,19 @@ all statistics must have their respective name in the top row of the spreadsheet
 This program was tested using Google sheets exported using a JSON exporter extension
 Said Extension can be found here https://workspace.google.com/marketplace/app/export_sheet_data/903838927001
 
+You will first be asked if a number is a reasonable amount of matches scouted. This is to check if you exported by document or by the sheet
+Select no if it isn't a reasonable amount of matches. if you select no you will be asked to select which spreadsheet to track. select accordingly
+
 You will then be asked to select which statistics to track. all tracked statistics must be convertible to ints or floats(any number)
-There are special tracking for team numbers and whether the robot died/broke. please select these accordingly
+There are special tracking for team numbers and whether the robot died/broke. Please select these accordingly
 Team number is used for identification of summarized data
+
 Died/broke is used to exclude matches where the robot died from the summarized data(it will still show correct percentages for Died/broke)
 Other than team number and died/broke, click track and don't track respective to what you would like to do for those statistics
-all tracked statistics MUST be convertible to a int or a float, otherwise the program will crash
+
+all tracked statistics MUST be convertible to a int or a float, the program will exclude any that are not convertible to a float or an int
+
+at any time during this process you may click the undo button to undo the last step
 
 currently about 9-10 statistics(other than died/broke and team number) can be tracked at once. 
 any more will not cause the program to crash, but will cause the statistics over the limit to be unviewable due to existing offscreen
