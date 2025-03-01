@@ -296,5 +296,14 @@ placeholder_text = "Enter Team number here"
 alignment = 1
 script = ExtResource("6_clw1f")
 
+[node name="reset" type="Button" parent="."]
+offset_left = 1679.0
+offset_top = 74.0
+offset_right = 1831.0
+offset_bottom = 151.0
+theme_override_font_sizes/font_size = 50
+text = "RESET"
+
 [connection signal="button_down" from="Button" to="." method="_on_exit_button_down"]
 [connection signal="text_submitted" from="LineEdit" to="LineEdit" method="_on_text_submitted"]
+[connection signal="button_down" from="reset" to="." method="_on_reset_button_down"]

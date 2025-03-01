@@ -185,3 +185,8 @@ func add_pick(pick:String):
 
 func _on_exit_button_down() -> void:
 	get_tree().change_scene_to_packed(main_scene)
+
+
+func _on_reset_button_down() -> void:
+	Globals.picked_teams = []
+	get_tree().reload_current_scene()
