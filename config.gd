@@ -150,6 +150,7 @@ func files_import(files:Array):
 			center_text_label.text = "Only a JSON is supported"
 		Settings.save()
 		Settings.save_spreadsheet(spreadsheet)
+		Settings.whitelist.append("matchesplayed")
 		configure_teams()
 
 

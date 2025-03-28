@@ -65,6 +65,9 @@ func summarize_data(spreadsheet_data):
 		if str(data[Settings.team_number_ID]) in saved_data.keys():
 			for i in data.keys():
 				if i in Settings.whitelist and i != Settings.team_number_ID and data[Settings.died_ID] != 1 or i == Settings.died_ID :
+					if data[i] == null:
+						data[i] = 0
+					print(data[i])
 					saved_data[str(data[Settings.team_number_ID])][i]+=int(data[i])
 			if int(data[Settings.died_ID])!=1:
 				saved_data[str(data[Settings.team_number_ID])]["matchesplayed"]+=1
@@ -90,7 +93,7 @@ func summarize_data(spreadsheet_data):
 				else:
 					saved_data[x][y] = 0
 			elif y == Settings.died_ID:
-				saved_data[x][y] = round_place(float(saved_data[x][y])/(float(saved_data[x]["matchesplayed"])+1),3)
+				saved_data[x][y] = round_place(float(saved_data[x][y])/(float(saved_data[x]["matchesplayed"])+float(saved_data[x][y])),3)
 	return saved_data
 
 func round_place(num,places):

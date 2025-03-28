@@ -26,7 +26,7 @@ vertical_alignment = 1
 unique_name_in_owner = true
 position = Vector2(0, 200)
 script = ExtResource("2_ta28g")
-chart_height = 400
+chart_height = 800
 
 [node name="Button" type="Button" parent="."]
 unique_name_in_owner = true
